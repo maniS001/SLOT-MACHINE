@@ -1,35 +1,33 @@
 import { Application, Assets, Sprite } from "pixi.js";
-
+import {  Spine } from "@esotericsoftware/spine-pixi-v8";
+import {LoadGameAssets, LoadPreloadAssets} from "./loadAssets.ts"
 (async () => {
+// exports={};
+
+  
   // Create a new application
   const app = new Application();
 
   // Initialize the application
   await app.init({ background: "#1099bb", resizeTo: window });
-
+(globalThis as any).__PIXI_APP__ = app;
   // Append the application canvas to the document body
   document.getElementById("pixi-container")!.appendChild(app.canvas);
 
-  // Load the bunny texture
-  const texture = await Assets.load("/assets/bunny.png");
+  await LoadPreloadAssets()
+  await LoadGameAssets()
 
-  // Create a bunny Sprite
-  const bunny = new Sprite(texture);
+  
+ const MainBg_anim = Spine.from({ skeleton:"BaseGame_BG_json", atlas:"BaseGame_BG_atlas", scale:0.5})
+MainBg_anim.x = app.screen.width/2;
+MainBg_anim.y = app.screen.height/2;
+ MainBg_anim.state.setAnimation(0, "animation", true);
+ app.stage.addChild(MainBg_anim);
+  
 
-  // Center the sprite's anchor point
-  bunny.anchor.set(0.5);
-
-  // Move the sprite to the center of the screen
-  bunny.position.set(app.screen.width / 2, app.screen.height / 2);
-
-  // Add the bunny to the stage
-  app.stage.addChild(bunny);
-
-  // Listen for animate update
-  app.ticker.add((time) => {
-    // Just for fun, let's rotate mr rabbit a little.
-    // * Delta is 1 if running at 100% performance *
-    // * Creates frame-independent transformation *
-    bunny.rotation += 0.1 * time.deltaTime;
-  });
+   const testImage = new Sprite(Assets.get("logo"));
+    testImage.x = app.screen.width/2;
+    testImage.y = app.screen.height/10;
+    testImage.anchor.set(0.5);
+  app.stage.addChild(testImage);
 })();
