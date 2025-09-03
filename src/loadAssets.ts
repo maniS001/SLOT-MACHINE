@@ -3,14 +3,14 @@ import { Assets } from "pixi.js";
 export async function LoadPreloadAssets() {
   Assets.addBundle("preload-assets", {
     // "logo":"./public/assets/logo.png",
-    Game_Logo: "public/assets/loading-screen/Game_Logo.png",
+    Game_Logo: "./public/assets/loading-screen/Game_Logo.png",
     Loading_bar_design_3:
-      "public/assets/loading-screen/Loading_bar_design_3.png",
-    Loading_bar_empty_1: "public/assets/loading-screen/Loading_bar_empty_1.png",
-    Loading_bar_fill_2: "public/assets/loading-screen/Loading_bar_fill_2.png",
+      "./public/assets/loading-screen/Loading_bar_design_3.png",
+    Loading_bar_empty_1: "./public/assets/loading-screen/Loading_bar_empty_1.png",
+    Loading_bar_fill_2: "./public/assets/loading-screen/Loading_bar_fill_2.png",
     Loading_Screen_Background:
-      "public/assets/loading-screen/Loading_Screen_Background.png",
-    Loading_text: "public/assets/loading-screen/Loading_text.png",
+      "./public/assets/loading-screen/Loading_Screen_Background.png",
+    Loading_text: "./public/assets/loading-screen/Loading_text.png",
   });
   await Assets.loadBundle("preload-assets");
 }
