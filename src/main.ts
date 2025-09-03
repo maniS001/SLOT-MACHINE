@@ -1,6 +1,7 @@
 import { Application, Assets, Sprite } from "pixi.js";
 import { Spine } from "@esotericsoftware/spine-pixi-v8";
 import { LoadGameAssets, LoadPreloadAssets } from "./loadAssets.ts";
+
 (async () => {
   // exports={};
 
@@ -9,7 +10,8 @@ import { LoadGameAssets, LoadPreloadAssets } from "./loadAssets.ts";
 
   // Initialize the application
   await app.init({ background: "#1099bb", resizeTo: window });
-  // (globalThis).__PIXI_APP__ = app;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (globalThis as any).__PIXI_APP__ = app;
   // Append the application canvas to the document body
   document.getElementById("pixi-container")!.appendChild(app.canvas);
 
