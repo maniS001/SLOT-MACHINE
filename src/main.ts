@@ -17,7 +17,6 @@ import { LoadGameAssets, LoadPreloadAssets } from "./loadAssets.ts";
 
   await LoadPreloadAssets();
   await LoadGameAssets();
-  let x = 10
 
   const MainBg_anim = Spine.from({
     skeleton: "BaseGame_BG_json",
