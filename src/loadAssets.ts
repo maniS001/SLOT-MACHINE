@@ -4,10 +4,8 @@ export async function LoadPreloadAssets() {
   Assets.addBundle("preload-assets", {
     // "logo":"./assets/logo.png",
     Game_Logo: "./assets/loading-screen/Game_Logo.png",
-    Loading_bar_design_3:
-      "./assets/loading-screen/Loading_bar_design_3.png",
-    Loading_bar_empty_1:
-      "./assets/loading-screen/Loading_bar_empty_1.png",
+    Loading_bar_design_3: "./assets/loading-screen/Loading_bar_design_3.png",
+    Loading_bar_empty_1: "./assets/loading-screen/Loading_bar_empty_1.png",
     Loading_bar_fill_2: "./assets/loading-screen/Loading_bar_fill_2.png",
     Loading_Screen_Background:
       "./assets/loading-screen/Loading_Screen_Background.png",
@@ -18,8 +16,7 @@ export async function LoadPreloadAssets() {
 export async function LoadGameAssets() {
   const GameBundle_common = {
     // animations
-    BaseGame_BG_atlas:
-      "./assets/Animations/background/BaseGame_BG.atlas",
+    BaseGame_BG_atlas: "./assets/Animations/background/BaseGame_BG.atlas",
     BaseGame_BG_json: "./assets/Animations/background/BaseGame_BG.json",
 
     paylines_atlas: "./assets/Animations/payline/paylines.atlas",
@@ -60,10 +57,8 @@ export async function LoadGameAssets() {
     RG_HP3_json: "./assets/Animations/symbols/RG_HP3.json",
     RG_HP3_atlas: "./assets/Animations/symbols/RG_HP3.atlas",
 
-    Scatter_Regular_json:
-      "./assets/Animations/symbols/Scatter_Regular.json",
-    Scatter_Regular_atlas:
-      "./assets/Animations/symbols/Scatter_Regular.atlas",
+    Scatter_Regular_json: "./assets/Animations/symbols/Scatter_Regular.json",
+    Scatter_Regular_atlas: "./assets/Animations/symbols/Scatter_Regular.atlas",
 
     bigwin_json: "./assets/Animations/win/bigwin.json",
     bigwin_atlas: "./assets/Animations/win/bigwin.atlas",
