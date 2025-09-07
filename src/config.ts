@@ -1,4 +1,4 @@
-export enum AppDimension{
-    width = 1366,
-    height = 768
-} 
+export enum AppDimension {
+  width = 1366,
+  height = 768,
+}

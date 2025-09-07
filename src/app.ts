@@ -1,6 +1,4 @@
-import { Application, Assets, Sprite } from "pixi.js";
-import { Spine } from "@esotericsoftware/spine-pixi-v8";
-import { LoadGameAssets, LoadPreloadAssets } from "./loadAssets.ts";
+import { Application } from "pixi.js";
 import { AppDimension } from "./config.ts";
 import { loadingPage } from "./loadingPage.ts";
 import { GameCore } from "./core.ts";
@@ -12,7 +10,11 @@ import { GameCore } from "./core.ts";
   const app = new Application();
 
   // Initialize the application
-  await app.init({ background: "#1099bb", width:AppDimension.width,height:AppDimension.height });
+  await app.init({
+    background: "#1099bb",
+    width: AppDimension.width,
+    height: AppDimension.height,
+  });
   // Append the application canvas to the document body
   document.getElementById("pixi-container")!.appendChild(app.canvas);
 
@@ -20,18 +22,15 @@ import { GameCore } from "./core.ts";
   (globalThis as any).__PIXI_APP__ = app;
 
   const PreloadContainer = new loadingPage();
-  app.stage.addChild(PreloadContainer)
-  
-  function openGame(){
+  app.stage.addChild(PreloadContainer);
+
+  function openGame() {
     PreloadContainer.destroy();
     const Game = new GameCore();
     app.stage.addChild(Game);
   }
-  PreloadContainer.openGame = openGame
-
+  PreloadContainer.openGame = openGame;
 
   // await LoadPreloadAssets();
   // await LoadGameAssets();
-
-
 })();

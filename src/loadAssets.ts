@@ -1,6 +1,4 @@
 import { Assets } from "pixi.js";
-import * as PIXI from "pixi.js";  
-
 
 export async function LoadPreloadAssets() {
   Assets.addBundle("preload-assets", {
@@ -15,7 +13,9 @@ export async function LoadPreloadAssets() {
   });
   await Assets.loadBundle("preload-assets");
 }
-export async function LoadGameAssets(onProgressfun?:(Progress:number)=>void):Promise<void> {
+export async function LoadGameAssets(
+  onProgressfun?: (Progress: number) => void,
+): Promise<void> {
   const GameBundle_common = {
     // animations
     BaseGame_BG_atlas: "./assets/Animations/background/BaseGame_BG.atlas",
@@ -111,16 +111,16 @@ export async function LoadGameAssets(onProgressfun?:(Progress:number)=>void):Pro
 
   Assets.addBundle("Game-assets", GameBundle);
   // await Assets.loadBundle("Game-assets");
-  const AssetKeys = Object.keys(GameBundle)
-  let ProgressCounter = 0
-  const LoadPromisedAssets = AssetKeys.map( async (key)=>{
-    await Assets.load(key)
-    ProgressCounter++
-    if(onProgressfun){
-      onProgressfun(ProgressCounter/AssetKeys.length)
+  const AssetKeys = Object.keys(GameBundle);
+  let ProgressCounter = 0;
+  const LoadPromisedAssets = AssetKeys.map(async (key) => {
+    await Assets.load(key);
+    ProgressCounter++;
+    if (onProgressfun) {
+      onProgressfun(ProgressCounter / AssetKeys.length);
     }
-  })
-  await Promise.all(LoadPromisedAssets) 
+  });
+  await Promise.all(LoadPromisedAssets);
   // function progressLoading(){
 
   // }
