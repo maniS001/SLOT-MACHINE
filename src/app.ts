@@ -30,7 +30,7 @@ import { resizeApp } from "./resizer.ts";
     app.stage.addChild(Game);
   }
   PreloadContainer.openGame = openGame;
-  resizeApp(app)
+  resizeApp(app);
 
   // await LoadPreloadAssets();
   // await LoadGameAssets();

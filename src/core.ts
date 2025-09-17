@@ -31,8 +31,14 @@ export class GameCore extends PIXI.Container {
     this.addChild(MainBg_anim);
   }
   createReelsGrid() {
-    // const TotalReelsGrid = new ReelsGrid(ReelProperties.row,ReelProperties.column);
-    // TotalReelsGrid.position.set(AppDimension.width / 2, AppDimension.height / 2);
-    // this.addChild(TotalReelsGrid);
+    const TotalReelsGrid = new ReelsGrid(
+      ReelProperties.row,
+      ReelProperties.column,
+    );
+    TotalReelsGrid.position.set(
+      AppDimension.width / 2,
+      AppDimension.height / 2,
+    );
+    this.addChild(TotalReelsGrid);
   }
 }
