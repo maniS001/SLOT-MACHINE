@@ -2,6 +2,7 @@ import { Application } from "pixi.js";
 import { AppDimension } from "./config.ts";
 import { loadingPage } from "./loadingPage.ts";
 import { GameCore } from "./core.ts";
+import { resizeApp } from "./resizer.ts";
 
 (async () => {
   // exports={};
@@ -17,7 +18,6 @@ import { GameCore } from "./core.ts";
   });
   // Append the application canvas to the document body
   document.getElementById("pixi-container")!.appendChild(app.canvas);
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (globalThis as any).__PIXI_APP__ = app;
 
@@ -30,6 +30,7 @@ import { GameCore } from "./core.ts";
     app.stage.addChild(Game);
   }
   PreloadContainer.openGame = openGame;
+  resizeApp(app)
 
   // await LoadPreloadAssets();
   // await LoadGameAssets();
