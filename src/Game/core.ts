@@ -6,7 +6,7 @@ import { ReelsGrid } from "./reels";
 import { dummyFinalSymbols } from "./globals";
 
 export class GameCore extends PIXI.Container {
-  private TotalReelsGrid!:ReelsGrid;
+  private TotalReelsGrid!: ReelsGrid;
   constructor() {
     super();
     this.createBganim();
@@ -45,12 +45,12 @@ export class GameCore extends PIXI.Container {
     this.TotalReelsGrid = TotalReelsGrid;
   }
 
-  SpinClickFun(){
-    if(this.TotalReelsGrid.reesSpinning)return
-    // this.TotalReelsGrid.reesSpinning = true 
+  SpinClickFun() {
+    if (this.TotalReelsGrid.reesSpinning) return;
+    // this.TotalReelsGrid.reesSpinning = true
     this.TotalReelsGrid.startSpin();
     setTimeout(() => {
-      this.TotalReelsGrid.stopSpin(dummyFinalSymbols)
+      this.TotalReelsGrid.stopSpin(dummyFinalSymbols);
     }, 5000);
   }
 }

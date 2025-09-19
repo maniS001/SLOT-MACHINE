@@ -26,26 +26,21 @@ import { bottomButtons } from "./Game/bottomButtons.ts";
   app.stage.addChild(PreloadContainer);
 
   function openGame() {
-
-
-
     const Game = new GameCore();
     app.stage.addChild(Game);
-    Game.visible = false    
+    Game.visible = false;
     const bottomBtnsContainer = new bottomButtons();
     app.stage.addChild(bottomBtnsContainer);
     bottomBtnsContainer.x = AppDimension.width / 2;
     bottomBtnsContainer.y = 735;
-    bottomBtnsContainer.visible = false
-    bottomBtnsContainer.tiggerSpin = Game.SpinClickFun.bind(Game)
- 
+    bottomBtnsContainer.visible = false;
+    bottomBtnsContainer.tiggerSpin = Game.SpinClickFun.bind(Game);
+
     setTimeout(() => {
       PreloadContainer.destroy();
-    Game.visible = true    
-    bottomBtnsContainer.visible = true
-
+      Game.visible = true;
+      bottomBtnsContainer.visible = true;
     }, 500);
-
   }
   PreloadContainer.openGame = openGame;
   resizeApp(app);
