@@ -38,9 +38,7 @@ import { bottomButtons } from "./Game/bottomButtons.ts";
     bottomBtnsContainer.y = 735;
     bottomBtnsContainer.visible = false
     bottomBtnsContainer.tiggerSpin = Game.SpinClickFun.bind(Game)
-
-
-
+ 
     setTimeout(() => {
       PreloadContainer.destroy();
     Game.visible = true    

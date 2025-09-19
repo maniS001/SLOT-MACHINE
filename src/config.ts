@@ -6,9 +6,9 @@ export enum ReelProperties {
   row = 3,
   column = 5,
   dummyRows = row + 2,
-  symbolHeight = 120,
-  horizontalGap = 50,
-  verticalGap = 75,
+  symbolHeight = 115,
+  horizontalGap = 62,
+  verticalGap = 80,
   symbolWidth = symbolHeight,
   totalSymbols = row * column,
 }

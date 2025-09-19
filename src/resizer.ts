@@ -7,7 +7,7 @@ export function resizeApp(app: PIXI.Application) {
     const new_height = window.innerHeight / AppDimension.height;
     const scale = Math.min(new_width, new_height);
     if (window.matchMedia("(orientation:portrait)").matches) {
-      app.renderer.canvas.style.scale = scale * 1.7 + "";
+      app.renderer.canvas.style.scale = scale * 1.2 + "";
     } else {
       app.renderer.canvas.style.scale = scale + "";
     }

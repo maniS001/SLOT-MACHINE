@@ -16,9 +16,9 @@ export class GameCore extends PIXI.Container {
   createLogo() {
     const logo = new PIXI.Sprite(Assets.get("logo"));
     logo.anchor.set(0.5);
-    logo.scale.set(0.5);
+    logo.scale.set(0.7);
 
-    logo.position.set(AppDimension.width / 2, 130);
+    logo.position.set(AppDimension.width / 2, 30);
     this.addChild(logo);
   }
   createBganim() {
@@ -46,6 +46,8 @@ export class GameCore extends PIXI.Container {
   }
 
   SpinClickFun(){
+    if(this.TotalReelsGrid.reesSpinning)return
+    // this.TotalReelsGrid.reesSpinning = true 
     this.TotalReelsGrid.startSpin();
     setTimeout(() => {
       this.TotalReelsGrid.stopSpin(dummyFinalSymbols)

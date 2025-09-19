@@ -78,7 +78,41 @@ export const symbolAnims:{[key:string]:{[key:string]:string}} = {
         "stop":"stop", 
     },  
 }
-export const dummyFinalSymbols = [
+
+
+
+export const normalWinSymbols = [
+  ["A", "HP1", "A"],
+  ["J", "A", "K"],
+  ["RG_HP3", "A", "Cash_Value_regular"],
+  ["J", "HP2", "K"],
+  ["HP1", "LG_Wild", "HP4"],
+]
+export const bigWinSymbols = [
+  ["HP1", "LG_Wild", "HP1"],
+  ["K", "HP1", "J"],
+  ["HP1", "RG_HP3", "Cash_Value_regular"],
+  ["HP1", "J", "K"],
+  ["LG_Wild", "HP2", "HP4"],
+];
+export const megaWinSymbols = [
+  ["HP2", "HP2", "HP2"],
+  ["HP2", "J", "K"],
+  ["HP2", "RG_HP3", "Cash_Value_regular"],
+  ["HP2", "LG_Wild", "A"],
+  ["HP2", "HP4", "J"],
+];
+export const freeSpinsSymbols = [
+  ["Scatter_Regular", "HP1", "J"],
+  ["K", "Scatter_Regular", "A"],
+  ["HP2", "RG_HP3", "Scatter_Regular"],
+  ["LG_Wild", "J", "HP4"],
+  ["HP1", "Cash_Value_regular", "K"],
+];
+
+ export const dummyFinalSymbols = freeSpinsSymbols;
+ 
+ [
     [
     "A",
     "HP1",
@@ -103,5 +137,5 @@ export const dummyFinalSymbols = [
     "HP1",
     "HP2",
     "LG_Wild",        
-    ],]
- 
+    ]
+]
