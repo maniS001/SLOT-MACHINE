@@ -1,8 +1,9 @@
 import { Application } from "pixi.js";
 import { AppDimension } from "./config.ts";
 import { loadingPage } from "./loadingPage.ts";
-import { GameCore } from "./core.ts";
+import { GameCore } from "./Game/core.ts";
 import { resizeApp } from "./resizer.ts";
+import { bottomButtons } from "./Game/bottomButtons.ts";
 
 (async () => {
   // exports={};
@@ -25,9 +26,28 @@ import { resizeApp } from "./resizer.ts";
   app.stage.addChild(PreloadContainer);
 
   function openGame() {
-    PreloadContainer.destroy();
+
+
+
     const Game = new GameCore();
     app.stage.addChild(Game);
+    Game.visible = false    
+    const bottomBtnsContainer = new bottomButtons();
+    app.stage.addChild(bottomBtnsContainer);
+    bottomBtnsContainer.x = AppDimension.width / 2;
+    bottomBtnsContainer.y = 735;
+    bottomBtnsContainer.visible = false
+    bottomBtnsContainer.tiggerSpin = Game.SpinClickFun.bind(Game)
+
+
+
+    setTimeout(() => {
+      PreloadContainer.destroy();
+    Game.visible = true    
+    bottomBtnsContainer.visible = true
+
+    }, 500);
+
   }
   PreloadContainer.openGame = openGame;
   resizeApp(app);

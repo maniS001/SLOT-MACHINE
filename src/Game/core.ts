@@ -1,10 +1,12 @@
 import * as PIXI from "pixi.js";
 import { Assets } from "pixi.js";
-import { AppDimension, ReelProperties } from "./config";
+import { AppDimension, ReelProperties } from "../config";
 import { Spine } from "@esotericsoftware/spine-pixi-v8";
 import { ReelsGrid } from "./reels";
+import { dummyFinalSymbols } from "./globals";
 
 export class GameCore extends PIXI.Container {
+  private TotalReelsGrid!:ReelsGrid;
   constructor() {
     super();
     this.createBganim();
@@ -40,5 +42,13 @@ export class GameCore extends PIXI.Container {
       AppDimension.height / 2,
     );
     this.addChild(TotalReelsGrid);
+    this.TotalReelsGrid = TotalReelsGrid;
+  }
+
+  SpinClickFun(){
+    this.TotalReelsGrid.startSpin();
+    setTimeout(() => {
+      this.TotalReelsGrid.stopSpin(dummyFinalSymbols)
+    }, 5000);
   }
 }
