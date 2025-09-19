@@ -195,6 +195,7 @@ export class ReelsGrid extends PIXI.Container {
 
       // Add new symbols
       finalSymbols[col].forEach((symbolName0, row) => {
+        console.log(symbolName0);
         const symbolName = getSymbol(col, row);
         const symbol = this.create_a_symbol(symbolName);
         symbol.x = 0;

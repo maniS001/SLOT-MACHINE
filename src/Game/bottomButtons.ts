@@ -17,13 +17,13 @@ type BottonBotton = {
 export class bottomButtons extends PIXI.Container {
   private btnBg = Assets.get("Frame");
   private spinBtnbg = Assets.get("Spin_Idle");
-  private infoBtnBg = Assets.get("Info_Idle");
+  // private infoBtnBg = Assets.get("Info_Idle");
 
   private BalanceTxt_img = Assets.get("Balance_Text");
   private WinTxt_img = Assets.get("Win_Text");
   private BetTxt_img = Assets.get("Bet_Text");
-  private BetarrowLeft_img = Assets.get("Arrow_L_Idle");
-  private BetarrowRight_img = Assets.get("Arrow_R_Idle");
+  // private BetarrowLeft_img = Assets.get("Arrow_L_Idle");
+  // private BetarrowRight_img = Assets.get("Arrow_R_Idle");
   public tiggerSpin!: () => void;
   constructor() {
     super();
