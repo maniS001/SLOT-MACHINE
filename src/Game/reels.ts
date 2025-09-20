@@ -4,7 +4,7 @@ import { Spine } from "@esotericsoftware/spine-pixi-v8";
 import gsap from "gsap";
 import { ReelProperties } from "../config";
 import { symbolAnims, symbolNames } from "./globals";
-import { getSymbol } from "../testWins";
+// import { getSymbol } from "../testWins";
 export const symbolsArray: PIXI.Container[] = [];
 export class ReelsGrid extends PIXI.Container {
   private reels: PIXI.Container[][] = []; // symbols per column
@@ -18,7 +18,7 @@ export class ReelsGrid extends PIXI.Container {
   private speed = 0.075;
   private FinalSpineSymbols: Spine[] = [];
   public reesSpinning: boolean = false;
-  public checkWin!:()=>void;
+  public checkWin!: () => void;
   constructor(
     private rows: number,
     private cols: number,
@@ -74,15 +74,18 @@ export class ReelsGrid extends PIXI.Container {
     symbol.state.timeScale = 0;
     symbol.state.setAnimation(0, anim, false);
     symbol.state.addListener({
-      complete:()=>{
-        setTimeout((anim:string) => {
-          if(symbol.state){
-            symbol.state.setAnimation(0, anim, false);
-          }
-
-        }, Math.random()*3000+1000,anim);
-      }
-    })
+      complete: () => {
+        setTimeout(
+          (anim: string) => {
+            if (symbol.state) {
+              symbol.state.setAnimation(0, anim, false);
+            }
+          },
+          Math.random() * 3000 + 1000,
+          anim,
+        );
+      },
+    });
     // symbolContainer.addChild(symbol);
     return symbol;
   }
@@ -102,9 +105,9 @@ export class ReelsGrid extends PIXI.Container {
         ((this.cols - 1) * (this.reelWidth + ReelProperties.verticalGap)) / 2;
       this.FinalColsContainer.addChild(colContainer);
       this.FinalColsArr.push(colContainer);
-      symbolsArray.push(colContainer)
+      symbolsArray.push(colContainer);
     }
-    this.controlAnimations()
+    this.controlAnimations();
   }
 
   private spinIntialColumns(col: number) {
@@ -168,8 +171,7 @@ export class ReelsGrid extends PIXI.Container {
         onComplete: () => {
           colContainer.removeChild(symbol);
           // symbol.destroy({ children: true, texture: true });
-          this.DestroySpineAnim(symbol)
-
+          this.DestroySpineAnim(symbol);
         },
       });
 
@@ -182,8 +184,7 @@ export class ReelsGrid extends PIXI.Container {
   }
 
   private updateFinalSymbols(finalSymbols: string[][]) {
-
-        this.FinalSpineSymbols = [];
+    this.FinalSpineSymbols = [];
 
     this.FinalColsContainer.children.forEach((colContainer, col) => {
       const container = colContainer as PIXI.Container;
@@ -193,7 +194,7 @@ export class ReelsGrid extends PIXI.Container {
         .removeChildren()
         .forEach((c) => this.DestroySpineAnim(c as Spine));
       // symbol.destroy({ children: true, texture: true });
-          // this.DestroySpineAnim(symbol)
+      // this.DestroySpineAnim(symbol)
 
       // Add new symbols
       finalSymbols[col].forEach((symbolName, row) => {
@@ -205,10 +206,9 @@ export class ReelsGrid extends PIXI.Container {
         symbol.y = row * (this.symbolHeight + ReelProperties.horizontalGap);
         container.addChild(symbol);
         this.FinalSpineSymbols.push(symbol);
-
       });
     });
-  }  
+  }
   /** Fill initial grid with symbols */
   private spinFinalSymbols(col: number) {
     // const speed = 0.15; // duration to move one symbol height
@@ -218,20 +218,18 @@ export class ReelsGrid extends PIXI.Container {
       onComplete: (col) => {
         gsap.to(this.FinalColsArr[col], {
           duration: 0.1,
-          y: 0, 
+          y: 0,
         });
         if (col == this.cols - 1) {
           this.reesSpinning = false;
-          console.log(this.checkWin,"checkWin")
-          this.checkWin()
+          console.log(this.checkWin, "checkWin");
+          this.checkWin();
           this.controlAnimations();
         } // this.FinalColsContainer.addChild(colContainer)
       },
       onCompleteParams: [col],
     });
   }
-
-
 
   /** Start spin all reels */
   startSpin() {
@@ -262,35 +260,36 @@ export class ReelsGrid extends PIXI.Container {
       }, col * 300); // stagger stops per column
     }
   }
-DestroySpineAnim(SpineAnim: Spine): void {
-  gsap.killTweensOf(SpineAnim);
+  DestroySpineAnim(SpineAnim: Spine): void {
+    gsap.killTweensOf(SpineAnim);
 
-  if (SpineAnim.parent) {
-    SpineAnim.parent.removeChild(SpineAnim);
+    if (SpineAnim.parent) {
+      SpineAnim.parent.removeChild(SpineAnim);
+    }
+
+    if (SpineAnim.state) {
+      SpineAnim.state.clearTracks();
+      SpineAnim.state.clearListeners();
+    }
+
+    if (SpineAnim.skeleton) {
+      SpineAnim.skeleton.setToSetupPose();
+      SpineAnim.skeleton.slots.forEach((slot) => slot.setAttachment(null));
+    }
+
+    SpineAnim.destroy({ children: true, texture: true });
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (SpineAnim as any).state = null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (SpineAnim as any).skeleton = null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (SpineAnim as any).spineData = null;
   }
 
-  if (SpineAnim.state) {
-    SpineAnim.state.clearTracks();
-    SpineAnim.state.clearListeners();
+  controlAnimations(): void {
+    this.FinalSpineSymbols.forEach((symbol) => {
+      symbol.state.timeScale = 0.5;
+    });
   }
-
-  if (SpineAnim.skeleton) {
-    SpineAnim.skeleton.setToSetupPose();
-    SpineAnim.skeleton.slots.forEach(slot => slot.setAttachment(null));
-  }
-
-  SpineAnim.destroy({ children: true, texture: true });
-
-  // force GC help
-  (SpineAnim as any).state = null;
-  (SpineAnim as any).skeleton = null;
-  (SpineAnim as any).spineData = null;
-}
-
-controlAnimations(): void {
-  this.FinalSpineSymbols.forEach((symbol) => {
-    symbol.state.timeScale = 0.5;
-  });
-}
-
 }

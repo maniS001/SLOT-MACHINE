@@ -10,15 +10,14 @@ import { bottomButtons } from "./bottomButtons";
 export class GameCore extends PIXI.Container {
   private TotalReelsGrid!: ReelsGrid;
   bottomBtnsContainer!: bottomButtons;
-  
+
   constructor() {
     super();
     this.createBganim();
     this.createReelsGrid();
-    this.createPaylines()
-    this.createBottomButtons()
+    this.createPaylines();
+    this.createBottomButtons();
     this.createLogo();
-
   }
   createLogo() {
     const logo = new PIXI.Sprite(Assets.get("logo"));
@@ -38,14 +37,14 @@ export class GameCore extends PIXI.Container {
     MainBg_anim.y = AppDimension.height / 2;
     MainBg_anim.state.setAnimation(0, "animation", true);
     this.addChild(MainBg_anim);
-  } 
-  createBottomButtons(){
-      const bottomBtnsContainer = new bottomButtons();
-      this.addChild(bottomBtnsContainer);
-      bottomBtnsContainer.x = AppDimension.width / 2;
-      bottomBtnsContainer.y = 735;
-      this.bottomBtnsContainer = bottomBtnsContainer
-      bottomBtnsContainer.tiggerSpin = this.SpinClickFun.bind(this)
+  }
+  createBottomButtons() {
+    const bottomBtnsContainer = new bottomButtons();
+    this.addChild(bottomBtnsContainer);
+    bottomBtnsContainer.x = AppDimension.width / 2;
+    bottomBtnsContainer.y = 735;
+    this.bottomBtnsContainer = bottomBtnsContainer;
+    bottomBtnsContainer.tiggerSpin = this.SpinClickFun.bind(this);
   }
 
   createReelsGrid() {
@@ -58,22 +57,22 @@ export class GameCore extends PIXI.Container {
       AppDimension.height / 2,
     );
     this.addChild(TotalReelsGrid);
-    this.TotalReelsGrid = TotalReelsGrid; 
-    TotalReelsGrid.checkWin = this.checkWin.bind(this)
-  }  
+    this.TotalReelsGrid = TotalReelsGrid;
+    TotalReelsGrid.checkWin = this.checkWin.bind(this);
+  }
   SpinClickFun() {
-    if (this.TotalReelsGrid.reesSpinning) return; 
+    if (this.TotalReelsGrid.reesSpinning) return;
     this.TotalReelsGrid.startSpin();
-    this.bottomBtnsContainer.disableSpin()
-    setTimeout(() => { 
+    this.bottomBtnsContainer.disableSpin();
+    setTimeout(() => {
       this.TotalReelsGrid.stopSpin(getFinalSymbols());
     }, 3000);
-  } 
-  createPaylines(){
-      const PaylinesContainer = new drawPaylines()
-      this.addChild(PaylinesContainer)
   }
-  checkWin(){
-    this.bottomBtnsContainer.enableSpin()
+  createPaylines() {
+    const PaylinesContainer = new drawPaylines();
+    this.addChild(PaylinesContainer);
+  }
+  checkWin() {
+    this.bottomBtnsContainer.enableSpin();
   }
 }

@@ -3,7 +3,7 @@ import { AppDimension } from "./config.ts";
 import { loadingPage } from "./loadingPage.ts";
 import { GameCore } from "./Game/core.ts";
 import { resizeApp } from "./resizer.ts";
-import { bottomButtons } from "./Game/bottomButtons.ts";
+// import { bottomButtons } from "./Game/bottomButtons.ts";
 
 (async () => {
   // exports={};
@@ -29,7 +29,6 @@ import { bottomButtons } from "./Game/bottomButtons.ts";
     const Game = new GameCore();
     app.stage.addChild(Game);
     Game.visible = false;
-
 
     setTimeout(() => {
       PreloadContainer.destroy();
