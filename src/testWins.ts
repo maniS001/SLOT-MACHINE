@@ -1,3 +1,4 @@
+import { ReelProperties } from "./config";
 import { symbolNames } from "./Game/globals";
 
 // import { symbolNames } from "./symbols";
@@ -55,4 +56,15 @@ export function getSymbol(col: number, row: number): string {
 
   // fallback random
   return symbolNames[Math.floor(Math.random() * symbolNames.length)];
+}
+
+export function getFinalSymbols(): string[][] {
+  const finaySymbols:string[][] = []
+  for (let i = 0; i < ReelProperties.column; i++) {
+    finaySymbols.push([])
+    for (let j = 0; j < ReelProperties.row; j++) {
+      finaySymbols[i].push(getSymbol(i,j))
+    }
+  } 
+  return finaySymbols 
 }

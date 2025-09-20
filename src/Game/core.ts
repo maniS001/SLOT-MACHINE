@@ -3,14 +3,17 @@ import { Assets } from "pixi.js";
 import { AppDimension, ReelProperties } from "../config";
 import { Spine } from "@esotericsoftware/spine-pixi-v8";
 import { ReelsGrid } from "./reels";
-import { dummyFinalSymbols } from "./globals";
+import { getFinalSymbols } from "../testWins";
+import { drawPaylines } from "./paylines";
 
 export class GameCore extends PIXI.Container {
   private TotalReelsGrid!: ReelsGrid;
+  public FinalColsArr: PIXI.Container[] = [];
   constructor() {
     super();
     this.createBganim();
     this.createReelsGrid();
+    this.drawPaylines()
     this.createLogo();
   }
   createLogo() {
@@ -43,14 +46,18 @@ export class GameCore extends PIXI.Container {
     );
     this.addChild(TotalReelsGrid);
     this.TotalReelsGrid = TotalReelsGrid;
-  }
-
+    this.FinalColsArr = TotalReelsGrid.FinalColsArr; 
+  } 
   SpinClickFun() {
-    if (this.TotalReelsGrid.reesSpinning) return;
-    // this.TotalReelsGrid.reesSpinning = true
+    if (this.TotalReelsGrid.reesSpinning) return; 
     this.TotalReelsGrid.startSpin();
-    setTimeout(() => {
-      this.TotalReelsGrid.stopSpin(dummyFinalSymbols);
-    }, 5000);
+    setTimeout(() => { 
+      this.TotalReelsGrid.stopSpin(getFinalSymbols());
+    }, 3000);
+  } 
+  drawPaylines(){
+      const PaylinesContainer = new drawPaylines()
+      this.addChild(PaylinesContainer)
+      PaylinesContainer.FinalColsArr = this.FinalColsArr
   }
 }
