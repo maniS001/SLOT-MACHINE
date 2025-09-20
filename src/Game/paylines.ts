@@ -9,13 +9,12 @@ export class drawPaylines extends PIXI.Container{
     constructor(){
         super();
         this.drawPayline();
-        this.PaylinesArr[21].visible = true
+        // this.PaylinesArr[21].visible = true
     }
     drawPayline() {
         Paylines.forEach((line, index) => {
             const Payline = new PIXI.Graphics();
-            Payline.setStrokeStyle ({width:4,color:"yellow"});
-            let PreviosPos:{x:number,y:number} = {x:0,y:0}
+            Payline.setStrokeStyle({width:5, color:"yellow", join:"round", cap:"round", alignment:0.5});            let PreviosPos:{x:number,y:number} = {x:0,y:0}
             line.forEach((value, col) => {
                     if(col == 0){
                         const position = symbolsArray[col].children[value].getGlobalPosition();
