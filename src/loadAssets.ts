@@ -79,6 +79,7 @@ export async function LoadGameAssets(
     logo: "assets/logo.png",
     reelFrame: "assets/reelFrame.png",
     win_bg: "assets/win_bg.png",
+    exit_Idle: "assets/paytable/exit_Idle.png",
   };
   const GameBundle_PC = {
     Arrow_L_Disabled: "assets/Game UI/desktop/Arrow_L_Disabled.png",
@@ -105,6 +106,7 @@ export async function LoadGameAssets(
     Stop_Idle: "assets/Game UI/desktop/Stop_Idle.png",
     Stop_Pressed: "assets/Game UI/desktop/Stop_Pressed.png",
     Win_Text: "assets/Game UI/desktop/Win_Text.png",
+    desktop_payline: "assets/paytable/desktop/Page_4/desktop_payline.png",
   };
 
   const GameBundle_Audio = {

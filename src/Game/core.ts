@@ -9,6 +9,7 @@ import { bottomButtons } from "./bottomButtons";
 import gsap from "gsap";
 import { Bets } from "./globals";
 import { sounds } from "./sounds";
+import { createInfoPage } from "./infoPage";
 export let Balance = 1000000;
 export class GameCore extends PIXI.Container {
   private TotalReelsGrid!: ReelsGrid;
@@ -16,12 +17,14 @@ export class GameCore extends PIXI.Container {
   private ReelData!: ReelDataStructure;
   private PaylinesContainer!: drawPaylines;
   private currentWin!: PIXI.Text;
+  InfoPage!: createInfoPage;
   constructor() {
     super();
     this.createBganim();
     this.createReelsGrid();
     this.createPaylines();
     this.createBottomButtons();
+    this.createInfoPage();
     this.createWinAtCenter();
     this.createLogo();
   }
@@ -52,7 +55,15 @@ export class GameCore extends PIXI.Container {
     this.bottomBtnsContainer = bottomBtnsContainer;
     bottomBtnsContainer.tiggerSpin = this.SpinClickFun.bind(this);
   }
-
+  createInfoPage() {
+    const InfoPage = new createInfoPage();
+    this.addChild(InfoPage);
+    this.InfoPage = InfoPage;
+    this.bottomBtnsContainer.openInfoPage = this.InfoPage.showInfo.bind(
+      this.InfoPage,
+    );
+    // this.InfoPage
+  }
   createReelsGrid() {
     const TotalReelsGrid = new ReelsGrid(
       ReelProperties.row,

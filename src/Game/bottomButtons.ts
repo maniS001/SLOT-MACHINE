@@ -31,13 +31,16 @@ export class bottomButtons extends PIXI.Container {
   private BalanceTxt_img = Assets.get("Balance_Text");
   private WinTxt_img = Assets.get("Win_Text");
   private BetTxt_img = Assets.get("Bet_Text");
+
   public SpinButton!: Bottombutton;
+  public infoBtn!: Bottombutton;
   public BetAreaContainer!: Bottombutton;
   public betIndex = 0;
   public CummulativeWintext!: PIXI.Text;
   public TotalWintext!: PIXI.Text;
   public BalanceText!: PIXI.Text;
   public tiggerSpin!: () => void;
+  public openInfoPage!: () => void;
   betIncreaseBtn!: Bottombutton;
   betDecreaseBtn!: Bottombutton;
   constructor() {
@@ -226,16 +229,18 @@ export class bottomButtons extends PIXI.Container {
     }
   }
   createInfoBtn() {
-    const betDecreaseBtn = this.createButton({
+    const InfoBtn = this.createButton({
       btnbg: this.infoBtnBg,
-      btnName: "betDecreaseBtn",
-      isInteractive: false,
+      btnName: "InfoBtn",
+      isInteractive: true,
       X: -500,
       Y: 0,
-      pointerTab: () => {},
+      pointerTab: () => {
+        this.openInfoPage();
+      },
     });
-    // this.betDecreaseBtn = betDecreaseBtn;
-    this.addChild(betDecreaseBtn);
+    this.infoBtn = InfoBtn;
+    this.addChild(InfoBtn);
   }
 
   createSpinButton() {
