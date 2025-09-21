@@ -1,6 +1,8 @@
 import * as PIXI from "pixi.js";
 import { Assets } from "pixi.js";
 import { Bets, BrightnessFilter } from "./globals";
+import { Balance } from "./core";
+// import { Balance } from "../testWins";
 
 interface btnData {
   btnbg: PIXI.Texture;
@@ -30,8 +32,13 @@ export class bottomButtons extends PIXI.Container {
   private BetTxt_img = Assets.get("Bet_Text");
   public SpinButton!: Bottombutton;
   public BetAreaContainer!: Bottombutton;
-  private betIndex = 0;
+  public betIndex = 0;
+  public CummulativeWintext!:PIXI.Text;
+  public TotalWintext!:PIXI.Text;
+  public BalanceText!:PIXI.Text
   public tiggerSpin!: () => void;
+  betIncreaseBtn!: Bottombutton;
+  betDecreaseBtn!: Bottombutton;
   constructor() {
     super();
     this.createGoodluckArea();
@@ -40,7 +47,9 @@ export class bottomButtons extends PIXI.Container {
     this.createBetArea();
     this.createBetDecreaser();
     this.createBetIncreaser();
+    this.DisableBetDecreaseBtn()
     this.createInfoBtn();
+    // this.DisableBetContainer()
     this.createSpinButton();
   }
   createInfo() {}
@@ -48,7 +57,7 @@ export class bottomButtons extends PIXI.Container {
     const GoodluckContainer = this.createButton({
       btnbg: this.btnBg,
       btnName: "Goodluck",
-      Text: "GoodLuck",
+      Text: "GoodLuck!",
       addText: true,
       style: new PIXI.TextStyle({
         fontFamily: "Arial",
@@ -62,6 +71,7 @@ export class bottomButtons extends PIXI.Container {
       X: 0,
       Y: -65,
     });
+    this.CummulativeWintext = GoodluckContainer.Text!
     this.addChild(GoodluckContainer);
   }
   createBalanceArea() {
@@ -71,7 +81,7 @@ export class bottomButtons extends PIXI.Container {
       isInteractive: false,
       btnTxtImg: this.BalanceTxt_img,
       addText: true,
-      Text: "$1000",
+      Text: "$"+(Balance.toFixed(2)),
       style: new PIXI.TextStyle({
         fontFamily: "Arial",
         fontSize: 20,
@@ -84,6 +94,7 @@ export class bottomButtons extends PIXI.Container {
       Y: 0,
     });
     BalanceContainer.Text!.y = 15;
+    this.BalanceText = BalanceContainer.Text!
     this.addChild(BalanceContainer);
   }
   createTotalWinArea() {
@@ -101,11 +112,12 @@ export class bottomButtons extends PIXI.Container {
         stroke: "#000000",
         dropShadow: true,
       }),
-      Text: "$1000",
+      Text: "$0.00",
       X: 0,
       Y: 0,
     });
     WintextContainer.Text!.y = 15;
+    this.TotalWintext = WintextContainer.Text!
     this.addChild(WintextContainer);
   }
   createBetArea() {
@@ -115,7 +127,7 @@ export class bottomButtons extends PIXI.Container {
       isInteractive: false,
       btnTxtImg: this.BetTxt_img,
       addText: true,
-      Text: "$" + Bets[this.betIndex],
+      Text: "$" + (Bets[this.betIndex].toFixed(2)),
       style: new PIXI.TextStyle({
         fontFamily: "Arial",
         fontSize: 20,
@@ -131,11 +143,10 @@ export class bottomButtons extends PIXI.Container {
     this.addChild(BetAreaContainer);
     this.BetAreaContainer = BetAreaContainer;
   }
-
   // Arrow_L_Idle
   // Arrow_R_Idle
   createBetIncreaser() {
-    const betDecreseBtn = this.createButton({
+    const betIncreaseBtn = this.createButton({
       btnbg: this.Arrow_R_Idle,
       btnName: "betDecreaseBtn",
       isInteractive: true,
@@ -143,35 +154,78 @@ export class bottomButtons extends PIXI.Container {
       Y: 0,
       pointerTab: () => {
         this.betIndex++;
-        if (this.betIndex > Bets.length - 1) {
-          this.betIndex = 0;
+          this.EnableBetDecreaseBtn()
+
+        if (this.betIndex == Bets.length - 1) {
+          // this.betIndex = 0;
+          this.DisableBetIncreaseBtn()
+          // return
         }
-        this.BetAreaContainer.Text!.text = "$" + Bets[this.betIndex];
+        this.BetAreaContainer.Text!.text = "$" + (Bets[this.betIndex].toFixed(2));
       },
     });
-    // this.betDecreseBtn = betDecreseBtn;
-    this.addChild(betDecreseBtn);
+    this.betIncreaseBtn = betIncreaseBtn;
+    this.addChild(betIncreaseBtn);
   }
+    DisableBetIncreaseBtn(){
+    this.betIncreaseBtn.bg!.texture = Assets.get("Arrow_R_Disabled")
+    this.betIncreaseBtn.interactive = false
+  }
+   EnableBetIncreaseBtn(){
+    this.betIncreaseBtn.bg!.texture = Assets.get("Arrow_R_Idle")
+    this.betIncreaseBtn.interactive = true
+  } 
+
   createBetDecreaser() {
-    const betDecreseBtn = this.createButton({
+    const betDecreaseBtn = this.createButton({
       btnbg: this.Arrow_L_Idle,
       btnName: "betDecreaseBtn",
       isInteractive: true,
       X: 200,
       Y: 0,
       pointerTab: () => {
+          this.EnableBetIncreaseBtn()     
+
         this.betIndex--;
-        if (this.betIndex < 0) {
-          this.betIndex = Bets.length - 1;
+        if (this.betIndex == 0) {
+          // this.betIndex = Bets.length - 1;
+          this.DisableBetDecreaseBtn()
+          // return     
         }
-        this.BetAreaContainer.Text!.text = "$" + Bets[this.betIndex];
+        this.BetAreaContainer.Text!.text = "$" + (Bets[this.betIndex].toFixed(2));
       },
     });
-    // this.betDecreseBtn = betDecreseBtn;
-    this.addChild(betDecreseBtn);
+    this.betDecreaseBtn = betDecreaseBtn;
+    this.addChild(betDecreaseBtn);
+  }
+
+  DisableBetDecreaseBtn(){
+    this.betDecreaseBtn.bg!.texture = Assets.get("Arrow_L_Disabled")
+    this.betDecreaseBtn.interactive = false
+  }
+   EnableBetDecreaseBtn(){
+    this.betDecreaseBtn.bg!.texture = Assets.get("Arrow_L_Idle")
+    this.betDecreaseBtn.interactive = true
+  } 
+  DisableBet(){
+    this.DisableBetDecreaseBtn()
+    this.DisableBetIncreaseBtn()
+  }
+  EnableBet(){
+    console.log(this.betIndex)
+    if(this.betIndex==0){
+      this.EnableBetIncreaseBtn()     
+      this.DisableBetDecreaseBtn()
+    }else if(this.betIndex==Bets.length-1){
+      this.EnableBetDecreaseBtn();
+      this.DisableBetIncreaseBtn()
+    }else{
+      this.EnableBetIncreaseBtn()     
+      this.EnableBetDecreaseBtn();
+    }
   }
   createInfoBtn() {
-    const betDecreseBtn = this.createButton({
+    const betDecreaseBtn = this.createButton({
       btnbg: this.infoBtnBg,
       btnName: "betDecreaseBtn",
       isInteractive: false,
@@ -179,8 +233,8 @@ export class bottomButtons extends PIXI.Container {
       Y: 0,
       pointerTab: () => {},
     });
-    // this.betDecreseBtn = betDecreseBtn;
-    this.addChild(betDecreseBtn);
+    // this.betDecreaseBtn = betDecreaseBtn;
+    this.addChild(betDecreaseBtn);
   }
 
   createSpinButton() {
@@ -209,11 +263,22 @@ export class bottomButtons extends PIXI.Container {
     this.SpinButton.interactive = true;
     this.SpinButton.bg!.texture = Assets.get("Spin_Idle");
   }
+
+
+
   createButton(data: btnData) {
     const button: Bottombutton = new PIXI.Container();
     const bg = new PIXI.Sprite(data.btnbg);
     bg.anchor.set(0.5);
     bg.scale.set(0.8);
+    if (data.btnName == "Goodluck") { 
+      bg.texture = Assets.get("");
+      const bg1 = new PIXI.Sprite(data.btnbg);
+      bg1.anchor.set(0.5);
+      bg1.scale.set(1);
+      bg1.scale.x = 2;
+      bg.addChild(bg1);     
+    }
 
     button.bg = bg;
     if (data.btnTxtImg) {
@@ -242,10 +307,7 @@ export class bottomButtons extends PIXI.Container {
       // valueText.y = 15;
       button.Text = valueText;
     }
-    if (data.btnName == "Goodluck") {
-      // bg.texture.width = bg.texture.width*3
-      // bg.children[0].scale.x = 3
-    }
+
     if (data.isInteractive) {
       button.interactive = true;
       button.cursor = "pointer";

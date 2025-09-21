@@ -217,7 +217,9 @@ export class ReelsGrid extends PIXI.Container {
         if (col == this.cols - 1) {
           this.reesSpinning = false;
           console.log(this.checkWin, "checkWin");
-          this.checkWin();
+          setTimeout(() => {
+            this.checkWin();
+          }, 500);
           // this.startIdleAnimation();
         } // this.FinalColsContainer.addChild(colContainer)
       },
