@@ -28,7 +28,8 @@ export class GameCore extends PIXI.Container {
     this.createWinAtCenter();
     this.createLogo();
     document.body.addEventListener("keyup", (e) => {
-      if (e.code === "Space") { // for example, space bar
+      if (e.code === "Space") {
+        // for example, space bar
         this.SpinClickFun();
       }
     });
