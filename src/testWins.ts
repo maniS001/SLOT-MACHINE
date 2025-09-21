@@ -1,17 +1,17 @@
 import { ReelProperties } from "./config";
 import { symbolNames } from "./Game/globals";
 
-export interface ReelDataStructure{
-  win:number[],
-  payline:number[],
-  finalSymbols:string[][],
-  winSymIndices:number[][],
-  TotalWin:number,
-  freespin:boolean
+export interface ReelDataStructure {
+  win: number[];
+  payline: number[];
+  finalSymbols: string[][];
+  winSymIndices: number[][];
+  TotalWin: number;
+  freespin: boolean;
 }
 // import { symbolNames } from "./symbols";
 export const testPatterns: Record<string, string[][] | null> = {
-  none: null, // default = random 
+  none: null, // default = random
   smallWin: [
     ["A", "K", "Q"],
     ["A", "A", "Q"],
@@ -66,7 +66,14 @@ export function getSymbol(col: number, row: number): string {
 }
 
 export function getReelsData(): ReelDataStructure {
-  const ReelsData:ReelDataStructure = {win:[0],payline:[NaN],finalSymbols:[],TotalWin:0,freespin:false,winSymIndices:[]};
+  const ReelsData: ReelDataStructure = {
+    win: [0],
+    payline: [NaN],
+    finalSymbols: [],
+    TotalWin: 0,
+    freespin: false,
+    winSymIndices: [],
+  };
   const finalSymbols: string[][] = [];
   for (let i = 0; i < ReelProperties.column; i++) {
     finalSymbols.push([]);
@@ -75,36 +82,37 @@ export function getReelsData(): ReelDataStructure {
     }
   }
   ReelsData["finalSymbols"] = finalSymbols;
-  if(selectedPattern=="smallWin"){
-    ReelsData["win"] = [2,2];
-    ReelsData["payline"] = [2,15];
+  if (selectedPattern == "smallWin") {
+    ReelsData["win"] = [2, 2];
+    ReelsData["payline"] = [2, 15];
     ReelsData["TotalWin"] = 4;
-    ReelsData["winSymIndices"] = [[0,3,6],[0,4,6]];
-
-
-  }
-  else if(selectedPattern=="bigWin"){
-    ReelsData["win"] = [2,30];
-    ReelsData["payline"] = [1,2]; 
+    ReelsData["winSymIndices"] = [
+      [0, 3, 6],
+      [0, 4, 6],
+    ];
+  } else if (selectedPattern == "bigWin") {
+    ReelsData["win"] = [2, 30];
+    ReelsData["payline"] = [1, 2];
     ReelsData["TotalWin"] = 32;
-    ReelsData["winSymIndices"] = [[1,4,7],[0,3,6]];
-
-  }
-  else if(selectedPattern=="megaWin"){
-    ReelsData["win"] = [50,30,70];
-    ReelsData["payline"] = [1,2,3];    
+    ReelsData["winSymIndices"] = [
+      [1, 4, 7],
+      [0, 3, 6],
+    ];
+  } else if (selectedPattern == "megaWin") {
+    ReelsData["win"] = [50, 30, 70];
+    ReelsData["payline"] = [1, 2, 3];
     ReelsData["TotalWin"] = 150;
-    ReelsData["winSymIndices"] = [[1,4,7],[0,3,6],[2,5,8]];
-
-  }
-  else if(selectedPattern=="freeSpins"){
+    ReelsData["winSymIndices"] = [
+      [1, 4, 7],
+      [0, 3, 6],
+      [2, 5, 8],
+    ];
+  } else if (selectedPattern == "freeSpins") {
     ReelsData["win"] = [0];
-    ReelsData["payline"] = [NaN];   
+    ReelsData["payline"] = [NaN];
     ReelsData["TotalWin"] = 0;
     ReelsData["freespin"] = true;
     ReelsData["winSymIndices"] = [];
-
-
   }
   return ReelsData;
 }

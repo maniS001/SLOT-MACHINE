@@ -40,13 +40,13 @@ export class drawPaylines extends PIXI.Container {
       this.PaylinesArr.push(Payline);
     });
     // throw new Error("Method not implemented.");
-  };
-  showPayline(lineNum:number){
+  }
+  showPayline(lineNum: number) {
     this.hidePaylines();
-    this.PaylinesArr[lineNum-1].visible = true
-  };
-  hidePaylines(){
-    this.PaylinesArr.forEach(line => {
+    this.PaylinesArr[lineNum - 1].visible = true;
+  }
+  hidePaylines() {
+    this.PaylinesArr.forEach((line) => {
       line.visible = false;
     });
   }

@@ -3,10 +3,15 @@ import { Assets } from "pixi.js";
 import { Spine } from "@esotericsoftware/spine-pixi-v8";
 import gsap from "gsap";
 import { ReelProperties } from "../config";
-import { BrightnessFilter, DullFilter, symbolAnims, symbolNames } from "./globals";
-type SpineSymStructure = Spine&{
-  symbolName?:string
-}
+import {
+  BrightnessFilter,
+  DullFilter,
+  symbolAnims,
+  symbolNames,
+} from "./globals";
+type SpineSymStructure = Spine & {
+  symbolName?: string;
+};
 // import { getSymbol } from "../testWins";
 export const symbolsArray: PIXI.Container[] = [];
 export class ReelsGrid extends PIXI.Container {
@@ -69,7 +74,7 @@ export class ReelsGrid extends PIXI.Container {
   private create_a_symbol(symbolName: string): Spine {
     const anim = symbolAnims[symbolName]["idle"];
     // const symbolContainer = new PIXI.Container();
-    const symbol:SpineSymStructure = Spine.from({
+    const symbol: SpineSymStructure = Spine.from({
       skeleton: symbolName + "_json",
       atlas: symbolName + "_atlas",
       scale: this.reelWidth / 150,
@@ -103,7 +108,7 @@ export class ReelsGrid extends PIXI.Container {
   }
 
   private spinIntialColumns(col: number) {
-    // const speed = 0.15; // duration to move one symbol height 
+    // const speed = 0.15; // duration to move one symbol height
     gsap.to(this.FinalColsArr[col], {
       duration: (this.rows + 1) * this.speed,
       y: (this.rows + 1) * (this.symbolHeight + ReelProperties.horizontalGap),
@@ -175,7 +180,7 @@ export class ReelsGrid extends PIXI.Container {
   }
 
   private updateFinalSymbols(finalSymbols: string[][]) {
-    this.FinalSpineSymbols = []; 
+    this.FinalSpineSymbols = [];
     this.FinalColsContainer.children.forEach((colContainer, col) => {
       const container = colContainer as PIXI.Container;
 
@@ -274,57 +279,60 @@ export class ReelsGrid extends PIXI.Container {
     (SpineAnim as any).skeleton = null;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (SpineAnim as any).spineData = null;
-  } 
-  startIdleAnimation(): void { 
+  }
+  startIdleAnimation(): void {
     this.FinalSpineSymbols.forEach((symbol) => {
-        const symbolName = (symbol as SpineSymStructure).symbolName!
-        const anim = symbolAnims[symbolName]["idle"];
-        symbol.state.setAnimation(0, anim, false);
-        symbol.state.clearListeners();
-        symbol.filters = []
-        symbol.state.addListener({
-          complete: () => {
-            if(symbol.state.getCurrent(0)&&symbol.state.getCurrent(0)?.animation?.name==anim){
-              setTimeout((anim: string) => {
+      const symbolName = (symbol as SpineSymStructure).symbolName!;
+      const anim = symbolAnims[symbolName]["idle"];
+      symbol.state.setAnimation(0, anim, false);
+      symbol.state.clearListeners();
+      symbol.filters = [];
+      symbol.state.addListener({
+        complete: () => {
+          if (
+            symbol.state.getCurrent(0) &&
+            symbol.state.getCurrent(0)?.animation?.name == anim
+          ) {
+            setTimeout(
+              (anim: string) => {
                 if (symbol.state) {
                   symbol.state.setAnimation(0, anim, false);
                 }
               },
               Math.random() * 3000 + 1000,
               anim,
-              );
-            }
-          },
-        });      
-        // symbol.state.setAnimation("")
-        symbol.state.timeScale = 0.5;
-
+            );
+          }
+        },
+      });
+      // symbol.state.setAnimation("")
+      symbol.state.timeScale = 0.5;
     });
   }
-  startWinAnimation(indices:number[]):Promise<void>{
-    return new Promise((resolve)=>{ 
-          this.FinalSpineSymbols.forEach(sym=>{
-            sym.filters = [DullFilter]
-          })
-          for (const [index, symIdex] of indices.entries()) { 
-              let symbol = this.FinalSpineSymbols[symIdex] 
-              symbol.state.timeScale = 1;
-              const symbolName = symbol.symbolName!
-              symbol.filters = [BrightnessFilter]
-              const anim = symbolAnims[symbolName]["win"];
-              console.log(anim,symIdex,symbolName,"symbol animation")
-              symbol.state.setAnimation(0, anim, false);
-              symbol.state.clearListeners();
-              // symbol.state.clearTracks();
-              symbol.state.timeScale = 0.75;
-              symbol.state.addListener({
-                complete: () => {
-                  if(index==indices.length-1){
-                    resolve()
-                  }
-                },
-              });   
-          } 
-    })
+  startWinAnimation(indices: number[]): Promise<void> {
+    return new Promise((resolve) => {
+      this.FinalSpineSymbols.forEach((sym) => {
+        sym.filters = [DullFilter];
+      });
+      for (const [index, symIdex] of indices.entries()) {
+        const symbol = this.FinalSpineSymbols[symIdex];
+        symbol.state.timeScale = 1;
+        const symbolName = symbol.symbolName!;
+        symbol.filters = [BrightnessFilter];
+        const anim = symbolAnims[symbolName]["win"];
+        console.log(anim, symIdex, symbolName, "symbol animation");
+        symbol.state.setAnimation(0, anim, false);
+        symbol.state.clearListeners();
+        // symbol.state.clearTracks();
+        symbol.state.timeScale = 0.75;
+        symbol.state.addListener({
+          complete: () => {
+            if (index == indices.length - 1) {
+              resolve();
+            }
+          },
+        });
+      }
+    });
   }
 }
