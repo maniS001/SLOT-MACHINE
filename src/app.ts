@@ -3,6 +3,7 @@ import { AppDimension } from "./config.ts";
 import { loadingPage } from "./loadingPage.ts";
 import { GameCore } from "./Game/core.ts";
 import { resizeApp } from "./resizer.ts";
+import { sounds } from "./Game/sounds.ts";
 // import { bottomButtons } from "./Game/bottomButtons.ts";
 
 (async () => {
@@ -33,6 +34,9 @@ import { resizeApp } from "./resizer.ts";
     setTimeout(() => {
       PreloadContainer.destroy();
       Game.visible = true;
+      sounds.music_main_snd.play();
+      // sounds.reels_spin_snd.play();   // start spinning loop
+      // sounds.reel_stop_snd.play();
       // bottomBtnsContainer.visible = true;
     }, 500);
   }

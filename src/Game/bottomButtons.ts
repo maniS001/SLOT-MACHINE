@@ -2,6 +2,7 @@ import * as PIXI from "pixi.js";
 import { Assets } from "pixi.js";
 import { Bets, BrightnessFilter } from "./globals";
 import { Balance } from "./core";
+import { sounds } from "./sounds";
 // import { Balance } from "../testWins";
 
 interface btnData {
@@ -325,7 +326,10 @@ export class bottomButtons extends PIXI.Container {
       button.on("pointerupoutside", () => {
         button.scale.set(1);
       });
-      button.on("pointertap", data.pointerTab!);
+      button.on("pointertap", () => {
+        sounds.general_button_snd.play();
+        data.pointerTab!();
+      });
     }
     button.addChild(bg);
     button.x = data.X;

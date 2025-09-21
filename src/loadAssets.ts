@@ -107,7 +107,37 @@ export async function LoadGameAssets(
     Win_Text: "assets/Game UI/desktop/Win_Text.png",
   };
 
-  const GameBundle = { ...GameBundle_common, ...GameBundle_PC };
+  const GameBundle_Audio = {
+    bigwin_snd: "assets/sounds/bigwin.wav",
+    bigwin_in_snd: "assets/sounds/bigwin_in.wav",
+    bigwin_out_snd: "assets/sounds/bigwin_out.wav",
+    bonus_land_snd: "assets/sounds/bonus_land.wav",
+    bonusWin_snd: "assets/sounds/bonusWin.wav",
+    error_snd: "assets/sounds/error.wav",
+    general_button_snd: "assets/sounds/general_button.wav",
+    highPay1_snd: "assets/sounds/highPay1.wav",
+    highPay2_snd: "assets/sounds/highPay2.wav",
+    highPay3_snd: "assets/sounds/highPay3.wav",
+    highPay4_snd: "assets/sounds/highPay4.wav",
+    lowPay_snd: "assets/sounds/lowPay.wav",
+    megawin_snd: "assets/sounds/megawin.wav",
+    megawin_in_snd: "assets/sounds/megawin_in.wav",
+    megawin_out_snd: "assets/sounds/megawin_out.wav",
+    music_main_snd: "assets/sounds/music_main.wav",
+    reel_stop_snd: "assets/sounds/reel_stop.wav",
+    reels_spin_snd: "assets/sounds/reels_spin.wav",
+    scatter_land_snd: "assets/sounds/scatter_land.wav",
+    superwin_snd: "assets/sounds/superwin.wav",
+    superwin_in_snd: "assets/sounds/superwin_in.wav",
+    superwin_out_snd: "assets/sounds/superwin_out.wav",
+    wild_landing_snd: "assets/sounds/wild_landing.wav",
+    win_counter_snd: "assets/sounds/win_counter.wav",
+  };
+  const GameBundle = {
+    ...GameBundle_common,
+    ...GameBundle_PC,
+    ...GameBundle_Audio,
+  };
 
   Assets.addBundle("Game-assets", GameBundle);
   // await Assets.loadBundle("Game-assets");

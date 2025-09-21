@@ -8,6 +8,7 @@ import { drawPaylines } from "./paylines";
 import { bottomButtons } from "./bottomButtons";
 import gsap from "gsap";
 import { Bets } from "./globals";
+import { sounds } from "./sounds";
 export let Balance = 1000000;
 export class GameCore extends PIXI.Container {
   private TotalReelsGrid!: ReelsGrid;
@@ -68,6 +69,7 @@ export class GameCore extends PIXI.Container {
 
   SpinClickFun() {
     if (this.TotalReelsGrid.reesSpinning) return;
+    sounds.reels_spin_snd.play();
     Balance = Balance - Bets[this.bottomBtnsContainer.betIndex];
     this.bottomBtnsContainer.BalanceText.text = "$" + Balance.toFixed(2);
     this.bottomBtnsContainer.CummulativeWintext.text = "GoodLuck!";
@@ -143,6 +145,7 @@ export class GameCore extends PIXI.Container {
         this.bottomBtnsContainer.TotalWintext.text =
           "$" + CummulativeVal.toFixed(2);
         // this.bottomBtnsContainer
+        sounds.lowPay_snd.play();
         await this.TotalReelsGrid.startWinAnimation(
           this.ReelData.winSymIndices[index],
         );

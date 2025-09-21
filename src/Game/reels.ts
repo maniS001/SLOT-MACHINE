@@ -9,6 +9,7 @@ import {
   symbolAnims,
   symbolNames,
 } from "./globals";
+import { sounds } from "./sounds";
 type SpineSymStructure = Spine & {
   symbolName?: string;
 };
@@ -206,6 +207,7 @@ export class ReelsGrid extends PIXI.Container {
   /** Fill initial grid with symbols */
   private spinFinalSymbols(col: number) {
     // const speed = 0.15; // duration to move one symbol height
+    sounds.reel_stop_snd.play();
     gsap.to(this.FinalColsArr[col], {
       duration: (this.rows + 1) * this.speed,
       y: 15,
@@ -214,6 +216,7 @@ export class ReelsGrid extends PIXI.Container {
           duration: 0.1,
           y: 0,
         });
+        sounds.reels_spin_snd.stop();
         if (col == this.cols - 1) {
           this.reesSpinning = false;
           console.log(this.checkWin, "checkWin");
