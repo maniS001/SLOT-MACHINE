@@ -19,10 +19,7 @@ export class createInfoPage extends PIXI.Container {
     const PaylineInfo = new PIXI.Sprite(Assets.get("desktop_payline"));
     PaylineInfo.anchor.set(0.5);
     PaylineInfo.scale.set(0.5);
-    PaylineInfo.position.set(
-      AppDimension.width / 2,
-      AppDimension.height / 2,
-    );
+    PaylineInfo.position.set(AppDimension.width / 2, AppDimension.height / 2);
     this.addChild(PaylineInfo);
 
     const CloseBtn = new PIXI.Sprite(Assets.get("exit_Idle"));
