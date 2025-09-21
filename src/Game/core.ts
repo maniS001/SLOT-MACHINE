@@ -27,6 +27,11 @@ export class GameCore extends PIXI.Container {
     this.createInfoPage();
     this.createWinAtCenter();
     this.createLogo();
+    document.body.addEventListener("keyup", (e) => {
+      if (e.code === "Space") { // for example, space bar
+        this.SpinClickFun();
+      }
+    });
   }
   createLogo() {
     const logo = new PIXI.Sprite(Assets.get("logo"));
