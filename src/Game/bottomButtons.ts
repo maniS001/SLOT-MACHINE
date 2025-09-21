@@ -33,9 +33,9 @@ export class bottomButtons extends PIXI.Container {
   public SpinButton!: Bottombutton;
   public BetAreaContainer!: Bottombutton;
   public betIndex = 0;
-  public CummulativeWintext!:PIXI.Text;
-  public TotalWintext!:PIXI.Text;
-  public BalanceText!:PIXI.Text
+  public CummulativeWintext!: PIXI.Text;
+  public TotalWintext!: PIXI.Text;
+  public BalanceText!: PIXI.Text;
   public tiggerSpin!: () => void;
   betIncreaseBtn!: Bottombutton;
   betDecreaseBtn!: Bottombutton;
@@ -47,7 +47,7 @@ export class bottomButtons extends PIXI.Container {
     this.createBetArea();
     this.createBetDecreaser();
     this.createBetIncreaser();
-    this.DisableBetDecreaseBtn()
+    this.DisableBetDecreaseBtn();
     this.createInfoBtn();
     // this.DisableBetContainer()
     this.createSpinButton();
@@ -71,7 +71,7 @@ export class bottomButtons extends PIXI.Container {
       X: 0,
       Y: -65,
     });
-    this.CummulativeWintext = GoodluckContainer.Text!
+    this.CummulativeWintext = GoodluckContainer.Text!;
     this.addChild(GoodluckContainer);
   }
   createBalanceArea() {
@@ -81,7 +81,7 @@ export class bottomButtons extends PIXI.Container {
       isInteractive: false,
       btnTxtImg: this.BalanceTxt_img,
       addText: true,
-      Text: "$"+(Balance.toFixed(2)),
+      Text: "$" + Balance.toFixed(2),
       style: new PIXI.TextStyle({
         fontFamily: "Arial",
         fontSize: 20,
@@ -94,7 +94,7 @@ export class bottomButtons extends PIXI.Container {
       Y: 0,
     });
     BalanceContainer.Text!.y = 15;
-    this.BalanceText = BalanceContainer.Text!
+    this.BalanceText = BalanceContainer.Text!;
     this.addChild(BalanceContainer);
   }
   createTotalWinArea() {
@@ -117,7 +117,7 @@ export class bottomButtons extends PIXI.Container {
       Y: 0,
     });
     WintextContainer.Text!.y = 15;
-    this.TotalWintext = WintextContainer.Text!
+    this.TotalWintext = WintextContainer.Text!;
     this.addChild(WintextContainer);
   }
   createBetArea() {
@@ -127,7 +127,7 @@ export class bottomButtons extends PIXI.Container {
       isInteractive: false,
       btnTxtImg: this.BetTxt_img,
       addText: true,
-      Text: "$" + (Bets[this.betIndex].toFixed(2)),
+      Text: "$" + Bets[this.betIndex].toFixed(2),
       style: new PIXI.TextStyle({
         fontFamily: "Arial",
         fontSize: 20,
@@ -154,27 +154,27 @@ export class bottomButtons extends PIXI.Container {
       Y: 0,
       pointerTab: () => {
         this.betIndex++;
-          this.EnableBetDecreaseBtn()
+        this.EnableBetDecreaseBtn();
 
         if (this.betIndex == Bets.length - 1) {
           // this.betIndex = 0;
-          this.DisableBetIncreaseBtn()
+          this.DisableBetIncreaseBtn();
           // return
         }
-        this.BetAreaContainer.Text!.text = "$" + (Bets[this.betIndex].toFixed(2));
+        this.BetAreaContainer.Text!.text = "$" + Bets[this.betIndex].toFixed(2);
       },
     });
     this.betIncreaseBtn = betIncreaseBtn;
     this.addChild(betIncreaseBtn);
   }
-    DisableBetIncreaseBtn(){
-    this.betIncreaseBtn.bg!.texture = Assets.get("Arrow_R_Disabled")
-    this.betIncreaseBtn.interactive = false
+  DisableBetIncreaseBtn() {
+    this.betIncreaseBtn.bg!.texture = Assets.get("Arrow_R_Disabled");
+    this.betIncreaseBtn.interactive = false;
   }
-   EnableBetIncreaseBtn(){
-    this.betIncreaseBtn.bg!.texture = Assets.get("Arrow_R_Idle")
-    this.betIncreaseBtn.interactive = true
-  } 
+  EnableBetIncreaseBtn() {
+    this.betIncreaseBtn.bg!.texture = Assets.get("Arrow_R_Idle");
+    this.betIncreaseBtn.interactive = true;
+  }
 
   createBetDecreaser() {
     const betDecreaseBtn = this.createButton({
@@ -184,43 +184,43 @@ export class bottomButtons extends PIXI.Container {
       X: 200,
       Y: 0,
       pointerTab: () => {
-          this.EnableBetIncreaseBtn()     
+        this.EnableBetIncreaseBtn();
 
         this.betIndex--;
         if (this.betIndex == 0) {
           // this.betIndex = Bets.length - 1;
-          this.DisableBetDecreaseBtn()
-          // return     
+          this.DisableBetDecreaseBtn();
+          // return
         }
-        this.BetAreaContainer.Text!.text = "$" + (Bets[this.betIndex].toFixed(2));
+        this.BetAreaContainer.Text!.text = "$" + Bets[this.betIndex].toFixed(2);
       },
     });
     this.betDecreaseBtn = betDecreaseBtn;
     this.addChild(betDecreaseBtn);
   }
 
-  DisableBetDecreaseBtn(){
-    this.betDecreaseBtn.bg!.texture = Assets.get("Arrow_L_Disabled")
-    this.betDecreaseBtn.interactive = false
+  DisableBetDecreaseBtn() {
+    this.betDecreaseBtn.bg!.texture = Assets.get("Arrow_L_Disabled");
+    this.betDecreaseBtn.interactive = false;
   }
-   EnableBetDecreaseBtn(){
-    this.betDecreaseBtn.bg!.texture = Assets.get("Arrow_L_Idle")
-    this.betDecreaseBtn.interactive = true
-  } 
-  DisableBet(){
-    this.DisableBetDecreaseBtn()
-    this.DisableBetIncreaseBtn()
+  EnableBetDecreaseBtn() {
+    this.betDecreaseBtn.bg!.texture = Assets.get("Arrow_L_Idle");
+    this.betDecreaseBtn.interactive = true;
   }
-  EnableBet(){
-    console.log(this.betIndex)
-    if(this.betIndex==0){
-      this.EnableBetIncreaseBtn()     
-      this.DisableBetDecreaseBtn()
-    }else if(this.betIndex==Bets.length-1){
+  DisableBet() {
+    this.DisableBetDecreaseBtn();
+    this.DisableBetIncreaseBtn();
+  }
+  EnableBet() {
+    console.log(this.betIndex);
+    if (this.betIndex == 0) {
+      this.EnableBetIncreaseBtn();
+      this.DisableBetDecreaseBtn();
+    } else if (this.betIndex == Bets.length - 1) {
       this.EnableBetDecreaseBtn();
-      this.DisableBetIncreaseBtn()
-    }else{
-      this.EnableBetIncreaseBtn()     
+      this.DisableBetIncreaseBtn();
+    } else {
+      this.EnableBetIncreaseBtn();
       this.EnableBetDecreaseBtn();
     }
   }
@@ -264,20 +264,18 @@ export class bottomButtons extends PIXI.Container {
     this.SpinButton.bg!.texture = Assets.get("Spin_Idle");
   }
 
-
-
   createButton(data: btnData) {
     const button: Bottombutton = new PIXI.Container();
     const bg = new PIXI.Sprite(data.btnbg);
     bg.anchor.set(0.5);
     bg.scale.set(0.8);
-    if (data.btnName == "Goodluck") { 
+    if (data.btnName == "Goodluck") {
       bg.texture = Assets.get("");
       const bg1 = new PIXI.Sprite(data.btnbg);
       bg1.anchor.set(0.5);
       bg1.scale.set(1);
       bg1.scale.x = 2;
-      bg.addChild(bg1);     
+      bg.addChild(bg1);
     }
 
     button.bg = bg;
