@@ -20,7 +20,7 @@ export class createInfoPage extends PIXI.Container {
     PaylineInfo.anchor.set(0.5);
     PaylineInfo.scale.set(0.5);
     PaylineInfo.position.set(
-      AppDimension.width / 2 - 50,
+      AppDimension.width / 2,
       AppDimension.height / 2,
     );
     this.addChild(PaylineInfo);
@@ -28,7 +28,7 @@ export class createInfoPage extends PIXI.Container {
     const CloseBtn = new PIXI.Sprite(Assets.get("exit_Idle"));
     CloseBtn.anchor.set(0.5);
     CloseBtn.scale.set(0.5);
-    CloseBtn.position.set(AppDimension.width - 100, 70);
+    CloseBtn.position.set(AppDimension.width - 200, 70);
     this.addChild(CloseBtn);
     CloseBtn.interactive = true;
     CloseBtn.cursor = "pointer";
