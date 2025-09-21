@@ -6,7 +6,7 @@ export class createInfoPage extends PIXI.Container {
   constructor() {
     super();
     this.createInfoPage();
-    this.showInfo();
+    this.visible = false;
   }
   createInfoPage() {
     const InfoBgShape = new PIXI.Graphics();
