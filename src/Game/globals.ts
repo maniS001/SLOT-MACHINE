@@ -2,16 +2,21 @@ import * as PIXI from "pixi.js";
 
 export const BrightnessFilter = new PIXI.ColorMatrixFilter();
 BrightnessFilter.brightness(1.3, true);
+
+export const DullFilter = new PIXI.ColorMatrixFilter();
+DullFilter.brightness(0.5, true);
+
 export const symbolNames = [
-  "A",
   "HP1",
   "HP2",
+  "RG_HP3",
   "HP4",
+  "A",
   "J",
   "K",
-  "LG_Wild",
   "Q",
-  "RG_HP3",
+  "10",
+  "LG_Wild",
   "Scatter_Regular",
   "Cash_Value_regular",
 ];
@@ -84,14 +89,13 @@ export const Paylines = [
   [2, 2, 2, 2, 2],
   [0, 1, 2, 1, 0],
   [2, 1, 0, 1, 2],
-  [0, 0, 1, 0, 0],
-  [2, 2, 1, 2, 2],
   [1, 0, 0, 0, 1],
   [1, 2, 2, 2, 1],
-  [1, 0, 1, 0, 1],
-  [1, 2, 1, 2, 1],
-  [0, 1, 0, 1, 0],
-  [2, 1, 2, 1, 2],
+  [0, 0, 1, 2, 2],
+  [2, 2, 1, 0, 0],
+  [2, 2, 1, 0, 0],
+  [1, 2, 1, 0, 1],
+  [1, 0, 1, 2, 1],
   [0, 1, 1, 1, 0],
   [2, 1, 1, 1, 2],
   [0, 1, 0, 1, 0],
@@ -100,7 +104,7 @@ export const Paylines = [
   [1, 1, 2, 1, 1],
   [0, 0, 2, 0, 0],
   [2, 2, 0, 2, 2],
-  [0, 2, 2, 2, 0],
+  [0, 2, 2, 2, 0], 
 ];
 
 export const Bets = [10, 25, 50, 100, 1000];

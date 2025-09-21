@@ -21,6 +21,7 @@ export class drawPaylines extends PIXI.Container {
         cap: "round",
         alignment: 0.5,
       });
+      // Payline.
       let PreviosPos: { x: number; y: number } = { x: 0, y: 0 };
       line.forEach((value, col) => {
         if (col == 0) {
@@ -39,5 +40,14 @@ export class drawPaylines extends PIXI.Container {
       this.PaylinesArr.push(Payline);
     });
     // throw new Error("Method not implemented.");
+  };
+  showPayline(lineNum:number){
+    this.hidePaylines();
+    this.PaylinesArr[lineNum-1].visible = true
+  };
+  hidePaylines(){
+    this.PaylinesArr.forEach(line => {
+      line.visible = false;
+    });
   }
 }

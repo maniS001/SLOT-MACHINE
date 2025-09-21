@@ -3,14 +3,15 @@ import { Assets } from "pixi.js";
 import { AppDimension, ReelProperties } from "../config";
 import { Spine } from "@esotericsoftware/spine-pixi-v8";
 import { ReelsGrid } from "./reels";
-import { getFinalSymbols } from "../testWins";
+import { getReelsData, ReelDataStructure } from "../testWins";
 import { drawPaylines } from "./paylines";
 import { bottomButtons } from "./bottomButtons";
 
 export class GameCore extends PIXI.Container {
   private TotalReelsGrid!: ReelsGrid;
   bottomBtnsContainer!: bottomButtons;
-
+  private ReelData!:ReelDataStructure;
+  private PaylinesContainer!:drawPaylines
   constructor() {
     super();
     this.createBganim();
@@ -65,14 +66,29 @@ export class GameCore extends PIXI.Container {
     this.TotalReelsGrid.startSpin();
     this.bottomBtnsContainer.disableSpin();
     setTimeout(() => {
-      this.TotalReelsGrid.stopSpin(getFinalSymbols());
+      this.ReelData =  getReelsData()
+      this.TotalReelsGrid.stopSpin(this.ReelData.finalSymbols);
     }, 3000);
   }
   createPaylines() {
     const PaylinesContainer = new drawPaylines();
     this.addChild(PaylinesContainer);
+    this.PaylinesContainer = PaylinesContainer;
   }
-  checkWin() {
-    this.bottomBtnsContainer.enableSpin();
+  async checkWin() {
+    if(this.ReelData.TotalWin>0){
+      for (const [index, lineNum] of this.ReelData.payline.entries()) {
+        this.PaylinesContainer.showPayline(lineNum);
+        await this.TotalReelsGrid.startWinAnimation(this.ReelData.winSymIndices[index]);
+        this.PaylinesContainer.hidePaylines();
+        if(index==this.ReelData.payline.length-1){
+          this.bottomBtnsContainer.enableSpin();
+          this.TotalReelsGrid.startIdleAnimation()
+        } 
+      }
+    }else{
+      this.TotalReelsGrid.startIdleAnimation()
+      this.bottomBtnsContainer.enableSpin();
+    } 
   }
 }
